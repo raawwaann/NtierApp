@@ -22,7 +22,8 @@ namespace NtierApp.Services
             {
                 Id = p.Id,
                 Name = p.Name,
-                Description = p.Description
+                Description = p.Description,
+                AllowedSubCategories = p.AllowedSubCategories
             });
         }
 
@@ -35,7 +36,9 @@ namespace NtierApp.Services
             {
                 Id = Category.Id,
                 Name = Category.Name,
-                Description = Category.Description
+                Description = Category.Description,
+                AllowedSubCategories = Category.AllowedSubCategories
+
             };
         }
 
@@ -44,7 +47,9 @@ namespace NtierApp.Services
             var Category = new Category
             {
                 Name = CategoryDto.Name,
-                Description = CategoryDto.Description
+                Description = CategoryDto.Description,
+                AllowedSubCategories= CategoryDto.AllowedSubCategories
+                
             };
 
             await _CategoryRepository.AddAsync(Category);
@@ -57,6 +62,7 @@ namespace NtierApp.Services
 
             Category.Name = CategoryDto.Name;
             Category.Description = CategoryDto.Description;
+            Category.AllowedSubCategories = CategoryDto.AllowedSubCategories;
 
             await _CategoryRepository.UpdateAsync(Category);
         }
@@ -64,6 +70,11 @@ namespace NtierApp.Services
         public async Task DeleteAsync(int id)
         {
             await _CategoryRepository.DeleteAsync(id);
+        }
+        public async Task<bool> IsSubCategoryAllowedAsync(int categoryId, string subCategoryName)
+        {
+            var category = await _CategoryRepository.GetByIdAsync(categoryId);
+            return category != null && category.AllowedSubCategories.Contains(subCategoryName);
         }
     }
 }

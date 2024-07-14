@@ -13,5 +13,6 @@ namespace NtierApp.Services
         Task AddAsync(CategoryDto CategoryDto);
         Task UpdateAsync(CategoryDto CategoryDto);
         Task DeleteAsync(int id);
+        Task<bool> IsSubCategoryAllowedAsync(int categoryId, string subCategoryName);
     }
 }

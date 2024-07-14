@@ -11,6 +11,7 @@ namespace NtierApp.Data
     public class SubCategoryRepository : ISubCategoryRepository
     {
         private readonly NtierAppContext _context;
+      
 
         public SubCategoryRepository(NtierAppContext context)
         {

@@ -13,5 +13,6 @@ namespace NtierApp.Data
         Task AddAsync(SubCategory subCategory);
         Task UpdateAsync(SubCategory subCategory);
         Task DeleteAsync(int id);
+
     }
 }
