@@ -21,7 +21,9 @@ namespace NtierApp.Services
             var subcategories = new SubCategory
             {
                 Name = subCatgeoryDto.Name,
-                Description=subCatgeoryDto.Description
+                Description=subCatgeoryDto.Description,
+                 CategoryId = subCatgeoryDto.CategoryId,
+          
             };
             await _subcategoryRepository.AddAsync(subcategories);   
         }
@@ -38,7 +40,9 @@ namespace NtierApp.Services
             {
                 Id = c.Id,
                 Name = c.Name,
-                Description=c.Description
+                Description=c.Description,
+                 CategoryId = c.CategoryId,
+                Category = c.Category
 
             });
            
@@ -52,7 +56,9 @@ namespace NtierApp.Services
             {
                 Id= subcategories.Id,
                 Name = subcategories.Name,
-                Description = subcategories.Description
+                Description = subcategories.Description,
+                CategoryId=subcategories.CategoryId,
+                Category = subcategories.Category
             };
         }
 
@@ -63,6 +69,7 @@ namespace NtierApp.Services
 
             subcategories.Name = subCatgeoryDto.Name;
             subcategories.Description= subCatgeoryDto.Description;
+            subcategories.Category = subCatgeoryDto.Category;
 
             await _subcategoryRepository.UpdateAsync(subcategories);
         }
