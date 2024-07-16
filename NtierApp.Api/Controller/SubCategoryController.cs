@@ -15,12 +15,14 @@ namespace NtierApp.Api.Controller
         {
             _subcategoryService = subcategoryService;
         }
+        [Route("GetAll")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubCategoryDto>>> GetAll()
         {
             var subCategories = await _subcategoryService.GetAllAsync();
             return Ok(subCategories);
         }
+        //[Route("GetById")]
         [HttpGet("{id}")]
         public async Task<ActionResult<SubCategoryDto>> GetById(int id)
         {
