@@ -22,7 +22,10 @@ namespace NtierApp.Services
             {
                 Id = p.Id,
                 Name = p.Name,
-                Price = p.Price
+                Price = p.Price,
+                Description = p.Description,
+                Quantity = p.Quantity
+                 
             });
         }
 
@@ -35,7 +38,10 @@ namespace NtierApp.Services
             {
                 Id = product.Id,
                 Name = product.Name,
-                Price = product.Price
+                Price = product.Price,
+                Description = product.Description,
+                Quantity = product.Quantity
+
             };
         }
 
@@ -44,7 +50,9 @@ namespace NtierApp.Services
             var product = new Product
             {
                 Name = productDto.Name,
-                Price = productDto.Price
+                Price = productDto.Price,
+                Description = productDto.Description,
+                Quantity = productDto.Quantity
             };
 
             await _productRepository.AddAsync(product);
@@ -57,6 +65,8 @@ namespace NtierApp.Services
 
             product.Name = productDto.Name;
             product.Price = productDto.Price;
+            product.Description = productDto.Description;
+            product.Quantity = productDto.Quantity;
 
             await _productRepository.UpdateAsync(product);
         }

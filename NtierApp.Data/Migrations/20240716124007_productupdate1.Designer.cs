@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NtierApp.Data;
 
@@ -10,9 +11,11 @@ using NtierApp.Data;
 namespace NtierApp.Data.Migrations
 {
     [DbContext(typeof(NtierAppContext))]
-    partial class NtierAppContextModelSnapshot : ModelSnapshot
+    [Migration("20240716124007_productupdate1")]
+    partial class productupdate1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
