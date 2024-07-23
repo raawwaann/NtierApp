@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NtierApp.Data;
 using NtierApp.Services;
 
 namespace NtierApp.Api.Controller
 {
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     
@@ -16,7 +18,7 @@ namespace NtierApp.Api.Controller
             _subcategoryService = subcategoryService;
         }
         [Route("GetAll")]
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<ActionResult<IEnumerable<SubCategoryDto>>> GetAll()
         {
             var subCategories = await _subcategoryService.GetAllAsync();

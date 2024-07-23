@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NtierApp.Data;
 using NtierApp.Services;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +24,36 @@ builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description="Stanadard Authorization header using the bearer scheme (\"bearer{token}\")",
+        In= Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Name="Authorization",
+        Type=Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
+    });
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+
+
+});
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+ .AddJwtBearer(options =>
+ {
+     options.TokenValidationParameters = new TokenValidationParameters
+     {
+         ValidateIssuerSigningKey = true,
+         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes
+         (builder.Configuration.GetSection("AppSettings:Token").Value)),
+         ValidateIssuer = false,
+         ValidateAudience=false
+
+
+
+
+
+     };
+ });
 
 var app = builder.Build();
 
@@ -30,6 +63,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
